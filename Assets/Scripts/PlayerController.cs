@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -6,7 +8,18 @@ public class PlayerController : MonoBehaviour
     public Rigidbody rigb;
     private int score = 0;
     public int health = 5;
-    // Update is called once per frame
+
+    public void Update()
+    {
+        if (health == 0)
+        {
+            Debug.Log("Game Over!");
+            SceneManager.LoadScene(0);
+            score = 0;
+            health = 5;
+        }
+    }
+
     public void FixedUpdate()
     {
         if (Input.GetKey(KeyCode.UpArrow))
@@ -32,6 +45,11 @@ public class PlayerController : MonoBehaviour
         {
             health -= 1;
             Debug.Log("Helath: " + health);
+        }
+
+        if (other.tag == "Goal")
+        {
+            Debug.Log("You win!");
         }
     }
 }
